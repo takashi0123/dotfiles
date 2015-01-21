@@ -1,6 +1,10 @@
 "---------------------------
 " Start Neobundle Settings.
 "---------------------------
+" 文字コードの自動判別
+:set encoding=utf-8
+:set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+
 " bundleで管理するディレクトリを指定
 set runtimepath+=~/.vim/bundle/neobundle.vim/
 " Required:
