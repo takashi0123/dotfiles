@@ -1,0 +1,151 @@
+" 脱初心者を目指すなら知っておきたい便利なVimコマンド25選
+" https://qiita.com/jnchito/items/57ffda5712636a9a1e62 
+" よく使われているvimのプラグイン top20
+" https://qiita.com/reireias/items/5364dcaada1a5b88a206
+" オレ的vimプラグイン10選
+" https://qiita.com/reireias/items/beaa3bb0e299ae934217
+"---------------------------
+" vim-plug Settings.
+"
+" 各プラグインのインストールを開始する
+" :PlugInstall
+"---------------------------
+if has('vim_starting')
+  set rtp+=~/.vim/plugged/vim-plug
+  if !isdirectory(expand('~/.vim/plugged/vim-plug'))
+    echo 'install vim-plug...'
+    call system('mkdir -p ~/.vim/plugged/vim-plug')
+    call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/plugged/vim-plug/autoload')
+  end
+endif
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'Shougo/unite.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+call plug#end()
+
+"---------------------------
+" unite.vim Settings.
+"---------------------------
+
+"---------------------------
+" vim-airline Settings.
+"
+" @see https://original-game.com/vim-airline/
+"---------------------------
+let g:airline#extensions#tabline#enabled = 1
+" タブを切り替える
+nmap <C-p> <Plug>AirlineSelectPrevTab
+nmap <C-n> <Plug>AirlineSelectNextTab
+
+" タブ番号を表示する
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+
+" テーマを設定する
+let g:airline_theme = 'papercolor'
+
+"---------------------------
+" nerdtree Settings.
+"---------------------------
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+let g:NERDTreeShowHidden=1
+
+" ツリーを表示する 
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
+
+" 操作コマンド
+" Ctrl+w+w ウィンドウの移動(ツリーと開いているファイル間)
+
+" ファイル・ディレクトリ共通
+" mm : 名前変更、移動
+" md : 削除
+" ma : 追加
+" mc : コピー
+
+" ファイルの開き方
+" o（Enter）: 開く
+" i : 水平分割で上に開く
+" s : 垂直分割で左に開く
+" t : タブで開く
+
+" ツリーの操作
+" o : （ディレクトリの上で）開く/閉じる
+" O : 以下すべて開く
+" X : 以下すべて閉じる
+
+syntax on
+
+" 行番号を表示する
+set number
+
+" カーソルが何行目の何列目に置かれているかを表示する
+set ruler
+
+" コマンドラインに使われる画面上の行数
+set cmdheight=2
+
+" エディタウィンドウの末尾から2行目にステータスラインを常時表示させる
+set laststatus=2
+
+" ステータス行に表示させる情報の指定(どこからかコピペしたので細かい意味はわかっていない)
+set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
+
+" ウインドウのタイトルバーにファイルのパス情報等を表示する
+set title
+
+" コマンドラインモードで<Tab>キーによるファイル名補完を有効にする
+set wildmenu
+
+" 入力中のコマンドを表示する
+set showcmd
+
+" 検索結果をハイライト表示する
+set hlsearch
+
+" 暗い背景色に合わせた配色にする
+set background=dark
+
+" タブ入力を複数の空白入力に置き換える
+set expandtab
+
+" 検索ワードの最初の文字を入力した時点で検索を開始する
+set incsearch
+
+" 不可視文字を表示する
+"set list
+
+" 対応する括弧やブレースを表示する
+set showmatch
+
+" 改行時に前の行のインデントを継続する
+set autoindent
+
+" 改行時に入力された行の末尾に合わせて次の行のインデントを増減する
+set smartindent
+
+" タブ文字の表示幅
+set tabstop=4
+  
+" Vimが挿入するインデントの幅
+set shiftwidth=4
+
+" カーソルを行頭、行末で止まらないようにする
+set whichwrap=b,s,h,l,<,>,[,]
+
+" 行番号の色
+highlight LineNr ctermfg=darkyellow
+
+""""""""""""""""""""""""""""""
+" 自動的に閉じ括弧を入力
+""""""""""""""""""""""""""""""
+" imap { {}<LEFT>
+" imap [ []<LEFT>
+" imap ( ()<LEFT>
+""""""""""""""""""""""""""""""
+
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
